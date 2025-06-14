@@ -1,0 +1,1 @@
+g++ prioSched.cpp PrioQueue.cpp -o prioSched

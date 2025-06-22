@@ -26,10 +26,10 @@ int main() {
     {0, 0, 0, 2, 0},
     {0, 0, 0, 0, 1}
   };
-  
+
   vector<vector<int>> output = transformSparseMatrix(input);
-  int rows = output.size();
-  int cols = output[0].size();
+  size_t rows = output.size();
+  size_t cols = output[0].size();
 
   cout << "[sparseMatrix]\n{";
   for (int i = 0; i < rows; i++) {

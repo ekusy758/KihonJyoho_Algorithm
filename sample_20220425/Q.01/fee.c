@@ -15,7 +15,7 @@ int fee(int age) {
 
 int main(int argc, char **argv) {
     if (argc == 2) {
-        printf("%sÎ‚Ì“üê—¿‚Í %d‰~‚Å‚·.\n", argv[1], fee(atoi(argv[1])));
+        printf("age %s: %d yen.\n", argv[1], fee(atoi(argv[1])));
     }
     return 0;
 }

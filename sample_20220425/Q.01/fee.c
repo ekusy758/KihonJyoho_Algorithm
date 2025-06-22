@@ -1,16 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/******************************************************************************
-* <アルゴリズム概要>
-* 入場料を計算するプログラム
-* 0歳から3歳までは100円、4歳から9歳までは300円、10歳以上は500円
-* 関数feeは年齢を表す0以上の整数を引数に取り、入場料を返す。
-******************************************************************************/
 int fee(int age) {
-    if (age < 0) {
-        return -1;
-    }
+    if (age < 0) return -1;
+
     if (age <= 3) {
         return 100;
     } else if (age <= 9) {
@@ -20,8 +13,9 @@ int fee(int age) {
     }
 }
 
-void main(int argc, char **argv) {
+int main(int argc, char **argv) {
     if (argc == 2) {
         printf("%s歳の入場料は %d円です.\n", argv[1], fee(atoi(argv[1])));
     }
+    return 0;
 }

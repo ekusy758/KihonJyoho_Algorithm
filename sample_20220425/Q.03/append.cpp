@@ -1,6 +1,8 @@
 #include "ListElement.h"
 #include <iostream>
 
+using namespace std;
+
 ListElement* listHead = nullptr;
 
 void append(char qVal) {
@@ -19,23 +21,23 @@ void append(char qVal) {
 
 void printList(ListElement* head) {
   ListElement* curr = head;
-  std::cout << "[Status]\n";
+  cout << "[Status]\n";
   while (curr != nullptr) {
-    std::cout << "val: " << curr->val 
-              << ", curr: " << curr
-              << ", next: " << curr->next << "\n";
+    cout << "val: " << curr->val 
+         << ", curr: " << curr
+         << ", next: " << curr->next << "\n";
     curr = curr->next;
   }
-  std::cout << std::endl;
+  cout << endl;
 }
 
 int main(int argc, char** argv) {
   char c;
-  std::cout << "Please [Ctrl+C] to End...\n";
-  std::cout << "Type ASCII character and press Enter\n";
+  cout << "Please [Ctrl+C] to End...\n";
+  cout << "Type ASCII character and press Enter\n";
   while (true) {
-    std::cin >> c;
-    if (std::cin.eof()) {
+    cin >> c;
+    if (cin.eof()) {
       break; 
     }
     append(c);

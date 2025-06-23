@@ -1,5 +1,5 @@
-#ifndef LISTELEMENT_H
-#define LISTELEMENT_H
+#ifndef LIST_ELEMENT_H
+#define LIST_ELEMENT_H
 
 class ListElement {
   public:

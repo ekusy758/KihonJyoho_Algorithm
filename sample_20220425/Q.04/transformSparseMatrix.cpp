@@ -18,6 +18,20 @@ vector<vector<int>> transformSparseMatrix(vector<vector<int>> matrix) {
   return sparseMatrix;
 }
 
+void printVector2D(vector<vector<int>> vec) {
+  cout << "{";
+  for (int i = 0; i < vec.size(); i++) {
+    cout << "{";
+    for (int j = 0; j < vec[i].size(); j++) {
+      cout << vec[i][j];
+      if (j < vec[i].size() - 1) cout << ", ";
+    }
+    cout << "}";
+    if (i < vec.size() - 1) cout << ", ";
+  }
+  cout << "}" << endl;
+}
+
 int main() {
   vector<vector<int>> input = {
     {3, 0, 0, 0, 0},
@@ -26,22 +40,9 @@ int main() {
     {0, 0, 0, 2, 0},
     {0, 0, 0, 0, 1}
   };
-
+  
   vector<vector<int>> output = transformSparseMatrix(input);
-  size_t rows = output.size();
-  size_t cols = output[0].size();
-
-  cout << "[sparseMatrix]\n{";
-  for (int i = 0; i < rows; i++) {
-    cout << "{";
-    for (int j = 0; j < cols; j++) {
-      cout << output[i][j];
-      if (j < cols - 1) cout << ", ";
-    }
-    cout << "}";
-    if (i < rows - 1) cout << ", ";
-  }
-  cout << "}" << endl;
+  printVector2D(output);
 
   return 0;
 }

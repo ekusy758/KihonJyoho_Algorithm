@@ -31,17 +31,27 @@ void printList(ListElement* head) {
   cout << endl;
 }
 
-int main(int argc, char** argv) {
+void prompt() {
   char c;
-  cout << "Please [Ctrl+C] to End...\n";
-  cout << "Type ASCII character and press Enter\n";
+  bool isBuf = false;
+  cout << "Please [Ctrl+Z] Enter to end...\n";
   while (true) {
-    cin >> c;
-    if (cin.eof()) {
-      break; 
-    }
+    if (!isBuf) cout << "Input a character: ";
+    cin.get(c);
+    if (cin.eof()) break;
+    if (c == '\n') continue;
     append(c);
-    printList(listHead);
+    if (cin.peek() == '\n') {
+      isBuf = false;
+      cin.get();
+      printList(listHead);
+    } else {
+      isBuf = true;
+    }
   }
+}
+
+int main() {
+  prompt();
   return 0;
 }

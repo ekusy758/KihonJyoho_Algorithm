@@ -4,10 +4,10 @@
 C/C++でプログラムを組みながら、一緒に勉強していきましょう。<br>
 
 ## フォルダ構成
-- sample_20220425 : (IPA) 2022年04月25日公開 サンプル問題の実装プログラムです。
-                    [サンプル問題PDF](https://www.ipa.go.jp/shiken/syllabus/ps6vr7000000oett-att/fe_kamoku_b_sample.pdf)
-- sample_20221226 : (IPA) 2022年12月26日公開 サンプル問題の実装プログラムです。
-                    [サンプル問題PDF](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/ssf7ph000000h5tb-att/fe_kamoku_b_set_sample_qs.pdf)
+- sample_20220425 : IPA 2022年04月25日公開 サンプル問題の実装プログラムです。
+                    [問題冊子](https://www.ipa.go.jp/shiken/syllabus/ps6vr7000000oett-att/fe_kamoku_b_sample.pdf)
+- sample_20221226 : IPA 2022年12月26日公開 サンプル問題の実装プログラムです。
+                    [問題冊子](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/ssf7ph000000h5tb-att/fe_kamoku_b_set_sample_qs.pdf)
 
 ## 開発基準
 問題のプログラムでは手続き型とオブジェクト指向が半端に(?)混在しており、<br>

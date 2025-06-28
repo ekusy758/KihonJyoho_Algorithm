@@ -1,0 +1,31 @@
+from graphviz import Digraph
+
+dot = Digraph(format='png')
+dot.attr(rankdir='TB')
+dot.attr('node', shape='box', style='filled', fontname='MS Gothic', fillcolor='lightyellow')
+
+dot.node('start', '開始 (行列を受け取る)')
+dot.node('init', '3行の列 sparseMatrix を作成')
+dot.node('loop_i', '行番号iを0から順に処理', shape='diamond', fillcolor='lightblue')
+dot.node('loop_j', '列番号jを0から順に処理', shape='diamond', fillcolor='lightblue')
+dot.node('cond', '行列の値は0？', shape='diamond', fillcolor='lightblue')
+dot.node('store', '行番号, 列番号, 行列の値を\nsparseMatrix に記憶')
+dot.node('endLoop_j', '次の列へ', shape='ellipse', fillcolor='lightgrey')
+dot.node('endLoop_i', '次の行へ', shape='ellipse', fillcolor='lightgrey')
+dot.node('ret', 'sparseMatrix を返す')
+dot.node('end', '終了')
+
+dot.edge('start', 'init')
+dot.edge('init', 'loop_i')
+dot.edge('loop_i', 'loop_j', label='Yes')
+dot.edge('loop_j', 'cond', label='Yes')
+dot.edge('cond', 'store', label='Yes')
+dot.edge('store', 'endLoop_j')
+dot.edge('cond', 'endLoop_j', label='No')
+dot.edge('endLoop_j', 'loop_j')
+dot.edge('loop_j', 'endLoop_i', label='No')
+dot.edge('endLoop_i', 'loop_i')
+dot.edge('loop_i', 'ret', label='No')
+dot.edge('ret', 'end')
+
+dot.render('graph_Q4', view=True, cleanup=True)

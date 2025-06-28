@@ -25,4 +25,4 @@ dot.edge('cond2', 'ret500', label='No')
 dot.edge('ret500', 'return')
 
 # ファイルに出力(dot中間ファイルは残さない)
-dot.render('graph', cleanup=True)
+dot.render('graph_Q1', cleanup=True)

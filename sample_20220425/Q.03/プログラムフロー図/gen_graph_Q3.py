@@ -1,0 +1,30 @@
+from graphviz import Digraph
+
+dot = Digraph(format='png')
+dot.attr(rankdir='TB')
+dot.attr('node', shape='box', style='filled', fontname='MS Gothic', fillcolor='lightyellow')
+
+dot.node('global', 'リスト先頭を初期化')
+dot.node('start', '開始')
+dot.node('create', '新しい要素を作る')
+dot.node('isEmpty', 'リストは空ですか？', shape='diamond', fillcolor='lightblue')
+dot.node('setHead', 'リスト先頭に新しい要素を入れる')
+dot.node('setPrev', '今の要素をリスト先頭に設定')
+dot.node('loopCond', '次の要素がありますか？', shape='diamond', fillcolor='lightblue')
+dot.node('advance', '今の要素を次の要素に進める')
+dot.node('insert', '今の要素の次を新しい要素に設定')
+dot.node('end', '処理終了')
+
+dot.edge('global', 'start')
+dot.edge('start', 'create')
+dot.edge('create', 'isEmpty')
+dot.edge('isEmpty', 'setHead', label='Yes')
+dot.edge('setHead', 'end')
+dot.edge('isEmpty', 'setPrev', label='No')
+dot.edge('setPrev', 'loopCond')
+dot.edge('loopCond', 'advance', label='Yes')
+dot.edge('advance', 'loopCond')
+dot.edge('loopCond', 'insert', label='No')
+dot.edge('insert', 'end')
+
+dot.render('graph_Q3', cleanup=True, view=True)

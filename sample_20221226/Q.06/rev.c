@@ -10,7 +10,7 @@ uint8_t rev(uint8_t byte) {
   for (i = 0; i < 8; i++) {
     r = ((r << 1) | (rbyte & 0b00000001));
     rbyte = rbyte >> 1;
-    printf("TRACE(%d) r = ", i + 1); printBits(r); // ビット状態を出力
+    printf("TRACE(%d) r = ", i + 1); printBits(r); // Check bit status!
   }
   return r;
 }

@@ -26,4 +26,5 @@ void printVector(vector<int> vec) {
 int main() {
   vector<int> newArray = makeNewArray({3, 2, 1, 6, 5, 4});
   printVector(newArray);
+  return 0;
 }

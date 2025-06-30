@@ -2,7 +2,6 @@
 #define PRIO_QUEUE_H
 
 #include <queue>
-#include <utility>
 #include <string>
 
 struct OrderedQueueData {

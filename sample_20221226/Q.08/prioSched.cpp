@@ -1,8 +1,6 @@
 #include "PrioQueue.h"
 #include <iostream>
 
-using namespace std;
-
 void prioSched() {
   PrioQueue prioQueue;
   prioQueue.enqueue("A", 1);
@@ -18,7 +16,7 @@ void prioSched() {
   prioQueue.enqueue("C", 2);
   prioQueue.enqueue("A", 1);
   while (prioQueue.size() != 0) {
-    cout << prioQueue.dequeue() << endl;
+    std::cout << prioQueue.dequeue() << std::endl;
   }
 }
 

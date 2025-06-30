@@ -1,19 +1,20 @@
 #include "PrioQueue.h"
-#include <queue>
-#include <utility>
-#include <vector>
 #include <string>
+
+using namespace std;
 
 PrioQueue::PrioQueue() {
   /* declared at private variable */
 }
 
-void PrioQueue::enqueue(std::string s, int prio) {
+void PrioQueue::enqueue(string s, int prio) {
+  // Default is Descending, use '-' to invert!
+  // (High) -1 > -2 > -3 > -4 (Low)
   pq_.emplace(-prio, s);
 }
 
-std::string PrioQueue::dequeue() {
-  std::string s = pq_.top().second;
+string PrioQueue::dequeue() {
+  string s = pq_.top().second;
   pq_.pop();
   return s;
 }

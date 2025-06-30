@@ -1,5 +1,7 @@
 #include "PrioQueue.h"
 #include <string>
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
@@ -8,17 +10,28 @@ PrioQueue::PrioQueue() {
 }
 
 void PrioQueue::enqueue(string s, int prio) {
-  // Default is Descending, use '-' to invert!
-  // (High) -1 > -2 > -3 > -4 (Low)
-  pq_.emplace(-prio, s);
+  pq_.push(OrderedQueueData{prio, order_++, s});
+  cout << "enqueue: "; printQueue();
 }
 
 string PrioQueue::dequeue() {
-  string s = pq_.top().second;
+  string val = pq_.top().value;
   pq_.pop();
-  return s;
+  cout << "dequeue: "; printQueue();
+  return val;
 }
 
 int PrioQueue::size() {
   return static_cast<int>(pq_.size());
+}
+
+// For debug
+void PrioQueue::printQueue() {
+  priority_queue<OrderedQueueData> copy = pq_;
+  while (!copy.empty()) {
+    OrderedQueueData item = copy.top();
+    std::cout << "[" << item.value << ", " << item.prio << "(order:" << item.order << ")] ";
+    copy.pop();
+  }
+  cout << endl;
 }

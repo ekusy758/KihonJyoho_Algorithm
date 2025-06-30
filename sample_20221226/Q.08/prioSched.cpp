@@ -1,5 +1,5 @@
-#include <iostream>
 #include "PrioQueue.h"
+#include <iostream>
 
 using namespace std;
 
@@ -9,18 +9,16 @@ void prioSched() {
   prioQueue.enqueue("B", 2);
   prioQueue.enqueue("C", 2);
   prioQueue.enqueue("D", 3);
-  prioQueue.dequeue();
-  prioQueue.dequeue();
+  prioQueue.dequeue(); /* The return value is not used */
+  prioQueue.dequeue(); /* The return value is not used */
   prioQueue.enqueue("D", 3);
   prioQueue.enqueue("B", 2);
-  prioQueue.dequeue();
-  prioQueue.dequeue();
+  prioQueue.dequeue(); /* The return value is not used */
+  prioQueue.dequeue(); /* The return value is not used */
   prioQueue.enqueue("C", 2);
   prioQueue.enqueue("A", 1);
-  cout << "y–â‘è‚Ì‰ð“šz\n" << endl;
   while (prioQueue.size() != 0) {
-    queue_data deq = prioQueue.dequeue();
-    cout << "  Z–ß‚è’l: " << deq.s << "\n" << endl;
+    cout << prioQueue.dequeue() << endl;
   }
 }
 

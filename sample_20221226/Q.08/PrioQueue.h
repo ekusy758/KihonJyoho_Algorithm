@@ -1,23 +1,20 @@
-#ifndef _PRIOQUEUE_H_
-#define _PRIOQUEUE_H_
-#include <set>
-#include "queue_data.h"
+#ifndef PRIO_QUEUE_H
+#define PRIO_QUEUE_H
 
-using namespace std;
+#include <queue>
+#include <utility>
+#include <string>
 
 class PrioQueue {
-private:
-  void print_multiset();
-public:
-  multiset<queue_data> queue;
-  PrioQueue();
-  void enqueue(string s, int prio);
-  queue_data dequeue();
-  int size();
-};
+  private:
+    std::priority_queue<std::pair<int, std::string>> pq_;
 
-inline PrioQueue::PrioQueue() {
-  queue.clear();
-}
+  public:
+    PrioQueue();
+
+    void enqueue(std::string s, int prio);
+    std::string dequeue();
+    int size();
+};
 
 #endif

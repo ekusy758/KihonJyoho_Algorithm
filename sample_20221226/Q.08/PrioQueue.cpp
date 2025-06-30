@@ -1,29 +1,23 @@
 #include "PrioQueue.h"
-#include <iostream>
+#include <queue>
+#include <utility>
+#include <vector>
+#include <string>
 
-void PrioQueue::print_multiset() {
-  cout << "    ƒLƒ…[ó‘Ô:";
-  for (auto val : queue) {
-    cout << " | " << val.s << ", " << val.prio;
-  }
-  cout << " | " << endl << endl;
+PrioQueue::PrioQueue() {
+  /* declared at private variable */
 }
 
-void PrioQueue::enqueue(string s, int prio) {
-  queue.insert(queue_data(s, prio));
-  cout << "  Enqueue " << s << ", " << prio << endl;
-  print_multiset();
+void PrioQueue::enqueue(std::string s, int prio) {
+  pq_.emplace(-prio, s);
 }
 
-queue_data PrioQueue::dequeue() {
-  auto it = queue.begin();
-  queue_data copy = *it;
-  queue.erase(it);
-  cout << "  Dequeue" << endl;
-  print_multiset();
-  return copy;
+std::string PrioQueue::dequeue() {
+  std::string s = pq_.top().second;
+  pq_.pop();
+  return s;
 }
 
 int PrioQueue::size() {
-  return queue.size();
+  return static_cast<int>(pq_.size());
 }

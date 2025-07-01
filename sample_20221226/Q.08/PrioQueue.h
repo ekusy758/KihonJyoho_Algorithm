@@ -2,28 +2,31 @@
 #define PRIO_QUEUE_H
 
 #include <queue>
+#include <vector>
 #include <string>
 
-struct OrderedQueueData {
+struct QueueEntry {
   int prio;
   int order;
   std::string value;
+};
 
-  // Default descending to ascending!
-  bool operator<(const OrderedQueueData& other) const {
-    if (prio != other.prio) {
-      return prio > other.prio;
+// Default less(max-heap) to min-heap & FIFO order
+struct MinHeapCompare {
+  bool operator()(const QueueEntry& a, const QueueEntry& b) const {
+    if (a.prio != b.prio) {
+      return a.prio > b.prio;
     }
-    return order > other.order;
+    return a.order > b.order;
   }
 };
 
 class PrioQueue {
   private:
-    std::priority_queue<OrderedQueueData> pq_;
+    std::priority_queue<QueueEntry, std::vector<QueueEntry>, MinHeapCompare> pq_;
     int order_ = 0;
 
-    void printQueue(); // For debug
+    void printQueue(); // For debug print
 
   public:
     PrioQueue();

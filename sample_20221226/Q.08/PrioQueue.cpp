@@ -6,11 +6,11 @@
 using namespace std;
 
 PrioQueue::PrioQueue() {
-  /* declared at private variable */
+  /* Declared at private variable */
 }
 
 void PrioQueue::enqueue(string s, int prio) {
-  pq_.push(OrderedQueueData{prio, order_++, s});
+  pq_.push(QueueEntry{prio, order_++, s});
   cout << "enqueue: "; printQueue();
 }
 
@@ -27,10 +27,10 @@ int PrioQueue::size() {
 
 // For debug
 void PrioQueue::printQueue() {
-  priority_queue<OrderedQueueData> copy = pq_;
+  auto copy = pq_;
   while (!copy.empty()) {
-    OrderedQueueData item = copy.top();
-    std::cout << "[" << item.value << ", " << item.prio << "(order:" << item.order << ")] ";
+    QueueEntry qe = copy.top();
+    std::cout << "[" << qe.value << ", " << qe.prio << "(order:" << qe.order << ")] ";
     copy.pop();
   }
   cout << endl;

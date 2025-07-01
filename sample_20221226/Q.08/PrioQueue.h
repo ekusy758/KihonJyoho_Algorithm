@@ -11,13 +11,12 @@ struct QueueEntry {
   std::string value;
 };
 
-// Default less(max-heap) to min-heap & FIFO order
 struct MinHeapCompare {
   bool operator()(const QueueEntry& a, const QueueEntry& b) const {
     if (a.prio != b.prio) {
-      return a.prio > b.prio;
+      return a.prio > b.prio; // For Min-Heap
     }
-    return a.order > b.order;
+    return a.order > b.order; // For FIFO order
   }
 };
 

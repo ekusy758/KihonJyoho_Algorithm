@@ -25,7 +25,6 @@ int PrioQueue::size() {
   return static_cast<int>(pq_.size());
 }
 
-// For debug
 void PrioQueue::printQueue() {
   auto copy = pq_;
   while (!copy.empty()) {

@@ -1,15 +1,14 @@
 # C++実装に関して
 
 ## 概要
-問8は優先度キューを操作するプログラムの問題です。<br>
-これを、C++標準ライブラリの **std::priority_queue**を使って実装します。
+問8は優先度キューを操作するプログラムの問題です。これを標準ライブラリの **std::priority_queue**を使って実装します。
 
 ## ポイント１：優先度仕様について
-本問題では「小さい値ほど優先度を高いものとする」仕様ですが、<br>
-**Compare**のデフォルト引数は**less**となっており max-heap構造で処理されます。<br>
+本問題では「小さい値ほど優先度を高いものとする」仕様です。<br>
+しかし、**Compare**のデフォルト引数は**less**となっており max-heap構造で処理されます。<br>
 よって、**less**を **greater**にするなど何らかの形で min-heap構造への変換が必要です。
 
-### テンプレート定義（[cpprefjp - priority_queue](https://cpprefjp.github.io/reference/queue/priority_queue.html)）
+### クラステンプレート定義（[cpprefjp - priority_queue](https://cpprefjp.github.io/reference/queue/priority_queue.html)）
 ```cpp
 namespace std {
   template <class T,

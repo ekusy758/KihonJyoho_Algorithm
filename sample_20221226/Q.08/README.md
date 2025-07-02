@@ -1,17 +1,28 @@
 # C++実装に関して
 
 ## 概要
-問8は優先度キューを操作するプログラムの問題です。
-これを、<queue>ヘッダ std::priority_queueを使って実装します。
+問8は優先度キューを操作するプログラムの問題です。<br>
+これを、C++標準ライブラリの **std::priority_queue**を使って実装します。
 
-## 課題1：優先度仕様について
-本問題では「小さい値ほど優先度を高いものとする」仕様ですが、デフォルトでは降順（max-heap構造）で処理されます。<br>
-今回はCompare定義をpriority_queueに渡して、昇順（min-heap構造）へと変換します。
+## ポイント１：優先度仕様について
+本問題では「小さい値ほど優先度を高いものとする」仕様ですが、<br>
+**Compare**のデフォルト引数は**less**となっており max-heap構造で処理されます。<br>
+よって、**less**を **greater**にするなど何らかの形で min-heap構造への変換が必要です。
 
-## 課題2：dequeue仕様について
-本問題ではdequeueの関数定義は次のようになっています。
+### テンプレート定義（[cpprefjp - priority_queue](https://cpprefjp.github.io/reference/queue/priority_queue.html)）
+```cpp
+namespace std {
+  template <class T,
+            class Container = std::vector<T>,
+            class Compare = less<typename Container::value_type>>
+  class priority_queue;
+}
+```
+
+## ポイント２：dequeue仕様について
+本問題では dequeueの関数定義は次のようになっています。
 > 優先度付きキューからキュー内で最も優先度の高い要素を取り出して返す。
 > 最も優先度の高い要素が複数あるときは，そのうちの最初に追加された要素を一つ取り出して返す。
 
-この仕様（FIFO）により、優先度（prio）とは別に入庫順を記憶するためのメンバをデータ用構造体に定義します。<br>
-出庫に際しては、優先度→入庫順の2段階の判定を行います。
+この仕様（FIFO）により、優先度（prio）とは別に入庫順（order）を判定する比較ロジックが必要です。<br>
+今回は、独自の Compare構造体で operatorを定義し、**priority_queue**初期化時に渡すことで実現しています。

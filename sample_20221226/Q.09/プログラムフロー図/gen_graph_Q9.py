@@ -1,0 +1,30 @@
+from graphviz import Digraph
+
+dot = Digraph(format='png')
+dot.attr(rankdir='TB')
+dot.attr('node', shape='box', style='filled', fontname='MS Gothic', fillcolor='lightyellow')
+
+dot.node('start', '開始（節番号 n を受け取る）')
+dot.node('check2', '節番号 n の子の数は２？', shape='diamond', fillcolor='lightblue')
+dot.node('left2', '左の子を再帰呼び出し')
+dot.node('print2', '節番号 n を出力')
+dot.node('right2', '右の子を再帰呼び出し')
+dot.node('check1', '節番号 n の子の数は１？', shape='diamond', fillcolor='lightblue')
+dot.node('left1', '唯一の子を再帰呼び出し')
+dot.node('print1', '節番号 n を出力')
+dot.node('else', '節番号 n を出力')
+dot.node('end', '処理終了')
+
+dot.edge('start', 'check2')
+dot.edge('check2', 'left2', label='Yes')
+dot.edge('left2', 'print2')
+dot.edge('print2', 'right2')
+dot.edge('right2', 'end')
+dot.edge('check2', 'check1', label='No')
+dot.edge('check1', 'left1', label='Yes')
+dot.edge('left1', 'print1')
+dot.edge('print1', 'end')
+dot.edge('check1', 'else', label='No')
+dot.edge('else', 'end')
+
+dot.render('graph_Q9', view=True, cleanup=True)

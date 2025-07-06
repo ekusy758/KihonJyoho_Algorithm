@@ -1,0 +1,31 @@
+from graphviz import Digraph
+
+dot = Digraph(format='png')
+dot.attr(rankdir='TB')
+dot.attr('node', shape='box', style='filled', fontname='MS Gothic', fillcolor='lightyellow')
+
+dot.node('start', '開始（2つの文字配列を受け取る）')
+dot.node('init', '一致数cntを0に初期化')
+dot.node('checkLen', '2つの配列の長さは等しいか？', shape='diamond', fillcolor='lightblue')
+dot.node('returnMinus', '−1を返す')
+dot.node('loopCond', 'すべての文字を比較したか？', shape='diamond', fillcolor='lightblue')
+dot.node('checkMatch', '同じ文字か？', shape='diamond', fillcolor='lightblue')
+dot.node('increment', 'cntを1増やす')
+dot.node('next', '次の位置へ', shape='ellipse', fillcolor='lightgrey')
+dot.node('calcRatio', 'cnt ÷ 配列長を計算して返す')
+dot.node('end', '終了')
+
+dot.edge('start', 'init')
+dot.edge('init', 'checkLen')
+dot.edge('checkLen', 'returnMinus', label='No')
+dot.edge('returnMinus', 'end')
+dot.edge('checkLen', 'loopCond', label='Yes')
+dot.edge('loopCond', 'checkMatch', label='No', style='dashed')
+dot.edge('checkMatch', 'increment', label='Yes')
+dot.edge('increment', 'next')
+dot.edge('checkMatch', 'next', label='No')
+dot.edge('next', 'loopCond')
+dot.edge('loopCond', 'calcRatio', label='Yes')
+dot.edge('calcRatio', 'end')
+
+dot.render('graph_Q12', view=True, cleanup=True)

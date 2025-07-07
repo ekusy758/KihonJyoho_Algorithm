@@ -3,9 +3,10 @@
 
 using namespace std;
 
+/* This is bin-sort (bucket-sort) program. */
 vector<int> binSort(vector<int> data) {
   int n = data.size();
-  vector<int> bins = data;
+  vector<int> bins(n);
   int i;
 
   for (i = 0; i < n; i++) {
@@ -27,10 +28,10 @@ void printVector(vector<int> vec) {
 
 int main() {
   try {
-    vector<int> v = binSort(vector<int>{2, 6, 3, 1, 4, 5});
+    vector<int> v = binSort(vector<int>{2, 6, 3, 1, 4, 5}); // Require unique values
     printVector(v);
-  } catch (const exception& e) {
-    cout << "Error: " << e.what() << endl;
+  } catch (const out_of_range& e) {
+    cout << "out of range error: " << e.what() << endl;
   }
   return 0;
 }

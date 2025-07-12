@@ -13,14 +13,13 @@ function Board({ xIsNext, squares, onClick }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'O' : 'X');
+    status = (xIsNext ? '自分' : '相手') + 'の手番';
   }
 
   return (
     <div className="square-box hidden">
-      <div className="status">{status}</div>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={onClick(0)} />
         <Square value={squares[1]} onSquareClick={onClick(1)} />
@@ -36,6 +35,8 @@ function Board({ xIsNext, squares, onClick }) {
         <Square value={squares[7]} onSquareClick={onClick(7)} />
         <Square value={squares[8]} onSquareClick={onClick(8)} />
       </div>
+
+      <div className="status">{status}</div>
     </div>
   );
 }
@@ -58,29 +59,37 @@ export default function Game() {
 
   return (
     <>
-      <div className='center-board root'>
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+      <div class="wrapper">
+        <p>根の状態</p>
+        <div className='center-board root'>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        </div>
+        <hr/>
+        <div className='center-board Unchecked'>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        </div>
+        <hr/>
+        <div className='center-board Unchecked'>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        </div>
+        <hr/>
+        <div className='center-board Unchecked'>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        </div>
       </div>
-      <hr/>
-      <div className='center-board Unchecked'>
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+      <div class="footer">
+        <span>図．三目並べの状態遷移</span>
+        <button onClick={() => window.location.reload()}>リセット</button>
       </div>
-      <hr/>
-      <div className='center-board Unchecked'>
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-      </div>
-      <hr/>
-      <div className='center-board Unchecked'>
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-        <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-      </div>
+
     </>
   )
 }

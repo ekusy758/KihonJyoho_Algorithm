@@ -11,12 +11,23 @@ export function calculateWinner(squares) {
     [0, 4, 8],
     [2, 4, 6],
   ];
+
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      return squares[a];
+      if (squares[a] === 'O') {
+        return '勝ち 評価値 10';
+      } else if (squares[a] === 'X') {
+        return '負け 評価値 －10';
+      }
     }
   }
+
+  const allSquaresFilled = squares.every(square => square !== null);
+  if (allSquaresFilled) {
+    return '引き分け 評価値 0';
+  }
+
   return null;
 }
 
@@ -39,8 +50,10 @@ export function removeUncheckedClass(nextSquares) {
     ['X', 'O', 'X', 'X', 'O', 'O', null, 'X', 'O'],
     ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'],
   ];
+
   const uncheckedBoard = document.querySelector('.Unchecked');
   uncheckedBoard.classList.remove('Unchecked');
+
   const childBoard = uncheckedBoard.children;
   if (arraysEqual(nextSquares, r)) {
     childBoard[0].classList.remove('hidden');

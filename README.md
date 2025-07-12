@@ -1,14 +1,17 @@
 # KihonJyoho_Algorithm
-基本情報技術者試験 科目B サンプル問題解説用
+～基本情報技術者試験 科目B アルゴリズム学習支援プロジェクト～
 
 このプロジェクトは科目Bが解けなくて困っている人を助けるために立ち上げました。<br>
 C/C++でプログラムを組みながら、一緒にアルゴリズムを勉強していきましょう。<br>
-実際にコードを書くことで開発の基本プロセス（設計/コーディング/テスト/資料作成等）を疑似的に学ぶことができます。
+
+なお、このリポジトリは **DeepWiki**によるドキュメント化を導入しています。
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/ekusy758/KihonJyoho_Algorithm)
 
 ## フォルダ構成
-- sample_20220425 : 2022年04月25日公開分の実装プログラム集（問1～問5がアルゴリズム）
+- sample_20220425 : IPAが2022年04月25日に公開したサンプル問題の実装コード（問1～問5がアルゴリズム）
                     [問題冊子](https://www.ipa.go.jp/shiken/syllabus/ps6vr7000000oett-att/fe_kamoku_b_sample.pdf)
-- sample_20221226 : 2022年12月26日公開分の実装プログラム集（問1～問16がアルゴリズム）
+- sample_20221226 : IPAが2022年12月26日に公開したサンプル問題の実装コード（問1～問16がアルゴリズム）
                     [問題冊子](https://www.ipa.go.jp/shiken/syllabus/henkou/2022/ssf7ph000000h5tb-att/fe_kamoku_b_set_sample_qs.pdf)
 
 ## 開発基準

@@ -1,7 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// https://vite.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  base: '/KihonJyoho_Algorithm/sample_20221226/Q.15/', // GitHub Pagesでの相対パスを追加
+  plugins: [react()]
+});

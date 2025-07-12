@@ -36,3 +36,21 @@ npm list vite:
 
 
 -----------------------------------------------------------
+【Github Pages公開手順】
+-----------------------------------------------------------
+①パッケージ追加
+npm install --save-dev gh-pages
+
+②package.jsonへ記述追加
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist"
+  }
+}
+
+npm run build
+npm run deploy
+

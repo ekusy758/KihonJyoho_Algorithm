@@ -66,7 +66,7 @@ body {
   visibility: hidden;
 }
 
-.root .square-box {
+.root .hidden {
   visibility: visible;
 }
 
@@ -91,4 +91,17 @@ hr {
   align-items: center;
   gap: 0 15px;
   margin-top: 20px;
+}
+
+/* スマートフォン対応 (2分木表示をしない) */
+@media screen and (max-width: 480px) {
+	.hidden {
+    display: none;
+  }
+  .center-board {
+    gap: 0;
+  }
+  .root .hidden {
+    display: block;
+  }
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { calculateWinner, removeUncheckedClass } from './utils.js';
+import { calculateWinner, displayNextBoard } from './utils.js';
 
 function Square({value, onSquareClick}) {
   return (
@@ -54,7 +54,8 @@ export default function Game() {
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
 
-    removeUncheckedClass(nextSquares);
+    // 次のボードを表示 (Uncheckedクラス, hiddenクラスを削除)
+    displayNextBoard(nextSquares);
   }
 
   return (

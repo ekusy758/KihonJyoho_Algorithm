@@ -1,5 +1,7 @@
+/* 2分木の進行方向を記録 */
 let direction = null;
 
+/* ゲームの勝敗を判定 */
 export function calculateWinner(squares) {
   const lines = [
     [0, 1, 2],
@@ -31,7 +33,9 @@ export function calculateWinner(squares) {
   return null;
 }
 
-export function removeUncheckedClass(nextSquares) {
+/* 次のボードを表示する */
+export function displayNextBoard(nextSquares) {
+  // 2分木の分岐パターンを事前定義
   const r = ['X', 'O', 'X', 'X', 'O', 'O', 'O', null, null];
   const c = ['X', 'O', 'X', 'X', 'O', 'O', null, 'O', null]; // Winner 'O'
   const l = ['X', 'O', 'X', 'X', 'O', 'O', null, null, 'O'];
@@ -51,29 +55,33 @@ export function removeUncheckedClass(nextSquares) {
     ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'],
   ];
 
-  const uncheckedBoard = document.querySelector('.Unchecked');
-  uncheckedBoard.classList.remove('Unchecked');
+  // 次の未チェック領域を解除
+  const uncheckedArea = document.querySelector('.Unchecked');
+  uncheckedArea.classList.remove('Unchecked');
 
-  const childBoard = uncheckedBoard.children;
+  // プレイヤーの選択に応じたBoardを表示 (hiddenクラスを削除)
+  const childBoards = uncheckedArea.children;
+
   if (arraysEqual(nextSquares, r)) {
-    childBoard[0].classList.remove('hidden');
+    childBoards[0].classList.remove('hidden');
     direction = 'right';
   } else if (arraysEqual(nextSquares, c)) {
-    childBoard[1].classList.remove('hidden');
+    childBoards[1].classList.remove('hidden');
   } else if (arraysEqual(nextSquares, l)) { 
-    childBoard[2].classList.remove('hidden');
+    childBoards[2].classList.remove('hidden');
     direction = 'left';
   } else if (direction === 'right' && rr.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoard[0].classList.remove('hidden');
+    childBoards[0].classList.remove('hidden');
   } else if (rl.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoard[1].classList.remove('hidden');
+    childBoards[1].classList.remove('hidden');
   } else if (lr.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoard[2].classList.remove('hidden');
+    childBoards[2].classList.remove('hidden');
   } else if (direction === 'left' && ll.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoard[3].classList.remove('hidden');
+    childBoards[3].classList.remove('hidden');
   }
 }
 
+/* 配列の各値と要素数が一致しているか検査する */
 function arraysEqual(a, b) {
   return (
     Array.isArray(a) &&

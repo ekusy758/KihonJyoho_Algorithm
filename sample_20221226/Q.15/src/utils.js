@@ -1,6 +1,40 @@
 /* 2分木の進行方向を記録 */
 let direction = null;
 
+/* 盤面パターンと表示するBoardコンポーネント、進行方向を定義するオブジェクトおよびオブジェクト配列のデータ構造を定義 */
+const BOARD_TRANSITIONS = {
+  r: {
+    pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', null, null],
+    boardIndex: 0,
+    setDirection: 'right',
+  },
+  c: {
+    pattern: ['X', 'O', 'X', 'X', 'O', 'O', null, 'O', null],
+    boardIndex: 1,
+  },
+  l: {
+    pattern: ['X', 'O', 'X', 'X', 'O', 'O', null, null, 'O'],
+    boardIndex: 2,
+    setDirection: 'left',
+  },
+  rr: [
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', null], boardIndex: 3 },
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'], boardIndex: 7 },
+  ],
+  rl: [
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', null, 'X'], boardIndex: 4 },
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'O', 'X'], boardIndex: 8 },
+  ],
+  lr: {
+    pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'X', null, 'O'],
+    boardIndex: 5,
+  },
+  ll: [
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', null, 'X', 'O'], boardIndex: 6 },
+    { pattern: ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'], boardIndex: 10 },
+  ],
+};
+
 /* ゲームの勝敗を判定 */
 export function calculateWinner(squares) {
   const lines = [
@@ -33,51 +67,43 @@ export function calculateWinner(squares) {
   return null;
 }
 
-/* 次のボードを表示する */
-export function displayNextBoard(nextSquares) {
-  // 2分木の分岐パターンを事前定義
-  const r = ['X', 'O', 'X', 'X', 'O', 'O', 'O', null, null];
-  const c = ['X', 'O', 'X', 'X', 'O', 'O', null, 'O', null]; // Winner 'O'
-  const l = ['X', 'O', 'X', 'X', 'O', 'O', null, null, 'O'];
-  const rr = [
-    ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', null],
-    ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'],
-  ];
-  const rl = [
-    ['X', 'O', 'X', 'X', 'O', 'O', 'O', null, 'X'],
-    ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'O', 'X'], // Winner 'O'
-  ];
-  const lr = [
-    ['X', 'O', 'X', 'X', 'O', 'O', 'X', null, 'O'], // Winner 'X'
-  ];
-  const ll = [
-    ['X', 'O', 'X', 'X', 'O', 'O', null, 'X', 'O'],
-    ['X', 'O', 'X', 'X', 'O', 'O', 'O', 'X', 'O'],
-  ];
+/* 盤面の状態に基づいてBoardコンポーネントを表示する */
+export function displayNextBoard(nextSquares, visibleBoards, setVisibleBoards) {
+  for (const key of ['r', 'c', 'l']) {
+    const transition = BOARD_TRANSITIONS[key];
+    if (arraysEqual(nextSquares, transition.pattern)) {
+      setVisibleBoards(visibleBoards.map((v, i) => i === transition.boardIndex ? true : v));
+      if (transition.setDirection) {
+        direction = transition.setDirection;
+      }
+      return;
+    }
+  }
 
-  // 次の未チェック領域を解除
-  const uncheckedArea = document.querySelector('.Unchecked');
-  uncheckedArea.classList.remove('Unchecked');
+  if (direction === 'right') {
+    const rrMatch = BOARD_TRANSITIONS.rr.find(item => arraysEqual(nextSquares, item.pattern));
+    if (rrMatch) {
+      setVisibleBoards(visibleBoards.map((v, i) => i === rrMatch.boardIndex ? true : v));
+      return;
+    }
 
-  // プレイヤーの選択に応じたBoardを表示 (hiddenクラスを削除)
-  const childBoards = uncheckedArea.children;
+    const rlMatch = BOARD_TRANSITIONS.rl.find(item => arraysEqual(nextSquares, item.pattern));
+    if (rlMatch) {
+      setVisibleBoards(visibleBoards.map((v, i) => i === rlMatch.boardIndex ? true : v));
+      return;
+    }
+  } else if (direction === 'left') {
+    const llMatch = BOARD_TRANSITIONS.ll.find(item => arraysEqual(nextSquares, item.pattern));
+    if (llMatch) {
+      setVisibleBoards(visibleBoards.map((v, i) => i === llMatch.boardIndex ? true : v));
+      return;
+    }
+  }
 
-  if (arraysEqual(nextSquares, r)) {
-    childBoards[0].classList.remove('hidden');
-    direction = 'right';
-  } else if (arraysEqual(nextSquares, c)) {
-    childBoards[1].classList.remove('hidden');
-  } else if (arraysEqual(nextSquares, l)) { 
-    childBoards[2].classList.remove('hidden');
-    direction = 'left';
-  } else if (direction === 'right' && rr.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoards[0].classList.remove('hidden');
-  } else if (rl.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoards[1].classList.remove('hidden');
-  } else if (lr.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoards[2].classList.remove('hidden');
-  } else if (direction === 'left' && ll.some(pattern => arraysEqual(nextSquares, pattern))) {
-    childBoards[3].classList.remove('hidden');
+  const lrTransition = BOARD_TRANSITIONS.lr;
+  if (arraysEqual(nextSquares, lrTransition.pattern)) {
+    setVisibleBoards(visibleBoards.map((v, i) => i === lrTransition.boardIndex ? true : v));
+    return;
   }
 }
 
@@ -90,3 +116,4 @@ function arraysEqual(a, b) {
     a.every((val, i) => val === b[i])
   );
 }
+

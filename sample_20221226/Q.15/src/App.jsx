@@ -9,7 +9,7 @@ function Square({value, onSquareClick}) {
   );
 }
 
-function Board({ xIsNext, squares, onClick }) {
+function Board({ xIsNext, squares, onClick, isVisible }) {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
@@ -18,8 +18,15 @@ function Board({ xIsNext, squares, onClick }) {
     status = (xIsNext ? '自分' : '相手') + 'の手番';
   }
 
+  let className;
+  if (isVisible) {
+    className = 'square-box';
+  } else {
+    className = 'square-box hidden';
+  }
+
   return (
-    <div className="square-box hidden">
+    <div className={className}>
       <div className="board-row">
         <Square value={squares[0]} onSquareClick={onClick(0)} />
         <Square value={squares[1]} onSquareClick={onClick(1)} />
@@ -44,6 +51,9 @@ function Board({ xIsNext, squares, onClick }) {
 export default function Game() {
   const [squares, setSquares] = useState(['X', 'O', 'X', 'X', 'O', 'O', null, null, null]);
   const [xIsNext, setXIsNext] = useState(true);
+  const [uncheckedDivs, setUncheckedDivs] = useState(['center-board', 'Unchecked', 'Unchecked', 'Unchecked']);
+  const [uncheckedIndex, setUncheckedIndex] = useState(1);
+  const [visibleBoards, setVisibleBoards] = useState(Array(11).fill(false));
   
   function handleClick(i) {
     if (calculateWinner(squares) || squares[i]) {
@@ -54,39 +64,43 @@ export default function Game() {
     setSquares(nextSquares);
     setXIsNext(!xIsNext);
 
-    // 次のボードを表示 (Uncheckedクラス, hiddenクラスを削除)
-    displayNextBoard(nextSquares);
+    displayNextBoard(nextSquares, visibleBoards, setVisibleBoards);
+
+    const nextUncheckedDivs = uncheckedDivs.slice();
+    nextUncheckedDivs[uncheckedIndex] = 'center-board';
+    setUncheckedIndex(uncheckedIndex + 1);
+    setUncheckedDivs(nextUncheckedDivs);
   }
 
   return (
     <>
-      <div class="wrapper">
+      <div className="wrapper">
         <p>根の状態</p>
-        <div className='center-board root'>
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        <div className={`${uncheckedDivs[0]} root-node`}>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={true} />
         </div>
         <hr/>
-        <div className='center-board Unchecked'>
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        <div className={uncheckedDivs[1]}>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[0]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[1]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[2]} />
         </div>
         <hr/>
-        <div className='center-board Unchecked'>
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        <div className={uncheckedDivs[2]}>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[3]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[4]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[5]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[6]} />
         </div>
         <hr/>
-        <div className='center-board Unchecked'>
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} />
+        <div className={uncheckedDivs[3]}>
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[7]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[8]} />
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[9]} />{/* ゲーム上到達しなBoardd */}
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[10]} />
         </div>
       </div>
-      <div class="footer">
+      <div className="footer">
         <span>図．三目並べの状態遷移</span>
         <button onClick={() => window.location.reload()}>リセット</button>
       </div>

@@ -96,7 +96,7 @@ export default function Game() {
         <div className={uncheckedDivs[3]}>
           <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[7]} />
           <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[8]} />
-          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[9]} />{/* ゲーム上到達しなBoardd */}
+          <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[9]} />{/* ゲーム上到達しないBoard */}
           <Board xIsNext={xIsNext} squares={squares} onClick={(i) => () => handleClick(i)} isVisible={visibleBoards[10]} />
         </div>
       </div>
